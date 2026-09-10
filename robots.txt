@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://mini9913a-del.github.io/GEO-BEE/sitemap.xml
