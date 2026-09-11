@@ -79,16 +79,18 @@
 </script>
 </head>
 <body><nav><div class="navin">
-<a class="logo" href="index.html"><svg class="hex" viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#F2A007"/><stop offset="1" stop-color="#FBC01A"/></linearGradient></defs><path d="M12 2l8.66 5v10L12 22l-8.66-5V7z" fill="url(#bg)" stroke="var(--ink)" stroke-width="1.4" stroke-linejoin="round"/></svg> GEO <span class="b">BEE</span></a>
+<a class="logo" href="index.html"><svg class="hex" viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#F2A007"/><stop offset="1" stop-color="#FBC01A"/></linearGradient></defs><path d="M12 2l8.66 5v10L12 22l-8.66-5V7z" fill="url(#bg)" stroke="var(--ink)" stroke-width="1.4" stroke-linejoin="round"/></svg> GEO<span class="b">BEE</span></a>
 <div class="navlinks">
 <a class="lk" href="index.html#why">왜 필요한가</a>
 <a class="lk" href="index.html#build">서비스 구성</a>
+<a class="lk" href="index.html#cycle">운영 사이클</a>
+<a class="lk" href="index.html#faq">FAQ</a>
 <a class="lk" href="blog.html">블로그</a>
-<a class="btn" href="index.html#contact">무료 진단</a>
+<a class="btn" href="#" onclick="openModal(event)">무료 진단</a>
 </div></div></nav><header class="bhead"><div class="wrap">
 <div class="eyebrow">GEO BEE 블로그</div>
 <h1>AI 검색 시대의 인사이트</h1>
-<p>AEO·GEO는 왜 필요하고, 어떻게 실행하는가. AI 답변에 브랜드를 올리기 위한 실전 가이드를 모았습니다.</p>
+<p>AEO·GEO는 왜 필요하고, 어떻게 실행하는가.<br>AI 답변에 브랜드를 올리기 위한 실전 가이드를 모았습니다.</p>
 </div></header>
 <div class="wrap"><div class="cards"><a class="card" href="blog-1.html">
 <div class="thumb"><svg viewBox="0 0 400 250" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="GEO란 무엇인가? 생성형 엔진 최적화 완벽 정리 썸네일"><rect width="400" height="250" fill="url(#bg)"/><rect x="60" y="60" width="228" height="132" rx="16" fill="#fff"/><rect x="82" y="86" width="140" height="12" rx="6" fill="#2A2012" opacity=".85"/><rect x="82" y="112" width="180" height="12" rx="6" fill="#E8890C"/><rect x="82" y="136" width="118" height="9" rx="4.5" fill="#2A2012" opacity=".22"/><rect x="82" y="155" width="150" height="9" rx="4.5" fill="#2A2012" opacity=".22"/><circle cx="262" cy="150" r="28" fill="none" stroke="#2A2012" stroke-width="8"/><rect x="280" y="168" width="30" height="9" rx="4.5" transform="rotate(45 280 168)" fill="#2A2012"/><g transform="translate(296,44) scale(1.5)"><path d="M12 2l8.66 5v10L12 22l-8.66-5V7z" fill="#fff" stroke="#C9760A" stroke-width="1.6" stroke-linejoin="round"/></g></svg></div>
@@ -163,8 +165,36 @@
 <div class="meta"><span>2026-09-10</span><span>· 6분</span></div>
 </div>
 </a></div></div><footer><div class="wrap">
-<div class="logo"><svg class="hex" viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#F2A007"/><stop offset="1" stop-color="#FBC01A"/></linearGradient></defs><path d="M12 2l8.66 5v10L12 22l-8.66-5V7z" fill="url(#bg)" stroke="var(--ink)" stroke-width="1.4" stroke-linejoin="round"/></svg> GEO <span class="b">BEE</span></div>
+<div class="logo"><svg class="hex" viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#F2A007"/><stop offset="1" stop-color="#FBC01A"/></linearGradient></defs><path d="M12 2l8.66 5v10L12 22l-8.66-5V7z" fill="url(#bg)" stroke="var(--ink)" stroke-width="1.4" stroke-linejoin="round"/></svg> GEO<span class="b">BEE</span></div>
 <div>GEO 잘하는 꿀벌들 · AEO/GEO 실행 서비스 · AI 답변 속 인용 자리를 만듭니다</div>
 </div></footer>
+<div class="modal-overlay" id="applyModal" hidden>
+<div class="modal-backdrop" onclick="closeModal()"></div>
+<div class="modal-card" role="dialog" aria-modal="true" aria-label="무료 진단 신청">
+<button class="modal-x" onclick="closeModal()" aria-label="닫기">&times;</button>
+<div class="logo modal-logo"><svg class="hex" viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#F2A007"/><stop offset="1" stop-color="#FBC01A"/></linearGradient></defs><path d="M12 2l8.66 5v10L12 22l-8.66-5V7z" fill="url(#bg)" stroke="var(--ink)" stroke-width="1.4" stroke-linejoin="round"/></svg> GEO<span class="b">BEE</span></div>
+<div class="modal-title">무료 진단 신청</div>
+<form id="applyForm" onsubmit="return submitApply(event)">
+<label>브랜드<input name="brand" required></label>
+<label>홈페이지 URL<input name="url" type="url" placeholder="https://"></label>
+<label>이메일<input name="email" type="email" required></label>
+<label>담당자<input name="manager" required></label>
+<label>연락처<input name="phone" required></label>
+<label class="agree"><input type="checkbox" required><span>개인정보 수집·이용에 동의합니다</span></label>
+<button class="btn" type="submit">무료 진단 신청하기</button>
+</form>
+<div class="modal-done" id="applyDone" hidden>
+<div class="done-ic">&#10003;</div>
+<h4>신청이 접수되었습니다</h4>
+<p>입력하신 연락처로 곧 진단 결과를 보내드릴게요.</p>
+<button class="btn ghost" onclick="closeModal()">닫기</button>
+</div>
+</div></div>
+<script>
+function openModal(e){ if(e) e.preventDefault(); document.getElementById('applyForm').hidden=false; document.getElementById('applyDone').hidden=true; document.getElementById('applyModal').hidden=false; document.body.style.overflow='hidden'; }
+function closeModal(){ document.getElementById('applyModal').hidden=true; document.body.style.overflow=''; }
+function submitApply(e){ e.preventDefault(); document.getElementById('applyForm').hidden=true; document.getElementById('applyDone').hidden=false; return false; }
+document.addEventListener('keydown',function(e){ if(e.key==='Escape') closeModal(); });
+</script>
 </body>
 </html>

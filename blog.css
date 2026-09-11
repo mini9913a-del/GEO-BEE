@@ -18,6 +18,7 @@
  --hi-deep:#F0C24A; --mark:rgba(245,180,40,.30); --good:#5FBF8C; --btntext:#1A1305;
 }}
 *{box-sizing:border-box}
+[hidden]{display:none!important}
 body{margin:0;background:var(--band-a);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.75;-webkit-font-smoothing:antialiased}
 .wrap{max-width:940px;margin:0 auto;padding:0 24px}
 .rd{max-width:720px;margin:0 auto;padding:0 24px}
@@ -27,8 +28,8 @@ h1,h2,h3{letter-spacing:-.01em;line-height:1.25;text-wrap:balance}
 /* nav */
 nav{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--band-a) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
 .navin{max-width:940px;margin:0 auto;padding:13px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
-.logo{display:inline-flex;align-items:center;gap:8px;font-weight:900;font-size:20px;letter-spacing:-.02em}
-.logo .hex{width:20px;height:20px;flex:none}
+.logo{display:inline-flex;align-items:center;gap:0;font-weight:900;font-size:20px;letter-spacing:-.02em}
+.logo .hex{width:20px;height:20px;flex:none;margin-right:8px}
 .logo .b{background:linear-gradient(90deg,#F2A007,#FBC01A);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
 .navlinks{display:flex;align-items:center;gap:22px;font-size:13.5px;color:var(--muted);font-weight:500}
 .navlinks a{color:var(--muted)} .navlinks a:hover{color:var(--ink);text-decoration:none}
@@ -96,3 +97,23 @@ details .a{padding:0 2px 18px;color:var(--muted);font-size:14.5px;line-height:1.
 .related a:hover{color:var(--hi-deep);text-decoration:none}
 footer{border-top:1px solid var(--line);padding:30px 0;color:var(--faint);font-size:12px;line-height:1.9;background:var(--band-b)}
 footer .logo{font-size:16px;margin-bottom:8px}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line-strong)}
+.modal-overlay{position:fixed;inset:0;z-index:100;display:flex;align-items:center;justify-content:center;padding:20px}
+.modal-backdrop{position:absolute;inset:0;background:rgba(20,15,5,.55);backdrop-filter:blur(3px)}
+.modal-card{position:relative;z-index:1;width:100%;max-width:420px;background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:30px 28px;box-shadow:0 30px 70px -30px rgba(0,0,0,.6);max-height:92vh;overflow-y:auto}
+.modal-x{position:absolute;top:12px;right:14px;background:none;border:none;font-size:26px;line-height:1;color:var(--faint);cursor:pointer;padding:4px}
+.modal-x:hover{color:var(--ink)}
+.modal-logo{justify-content:center;font-size:22px}
+.modal-title{text-align:center;font-size:14.5px;color:var(--muted);margin-top:6px}
+.modal-card form{display:flex;flex-direction:column;gap:12px;margin-top:22px}
+.modal-card label{display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:600;color:var(--ink)}
+.modal-card input{font-family:inherit;font-size:14px;padding:11px 13px;border:1px solid var(--line-strong);border-radius:9px;background:var(--band-a);color:var(--ink)}
+.modal-card input:focus{outline:2px solid var(--accent);outline-offset:1px;border-color:var(--accent)}
+.modal-card label.agree{flex-direction:row;align-items:center;gap:8px;font-size:12px;font-weight:500;color:var(--muted);margin-top:2px}
+.modal-card label.agree input{width:16px;height:16px;padding:0;flex:none}
+.modal-card form .btn{margin-top:8px;width:100%;justify-content:center;font-size:15px;padding:13px 24px}
+.modal-done{text-align:center;padding:16px 0 4px}
+.modal-done .done-ic{width:54px;height:54px;border-radius:50%;background:var(--accent-grad);color:var(--btntext);font-size:28px;font-weight:800;display:flex;align-items:center;justify-content:center;margin:6px auto 16px}
+.modal-done h4{font-size:19px;font-weight:800;margin-bottom:8px}
+.modal-done p{font-size:14px;color:var(--muted);margin-bottom:20px}
+.modal-done .btn{width:100%;justify-content:center}
