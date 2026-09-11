@@ -317,6 +317,12 @@ footer{border-top:1px solid var(--line);padding:34px 0;color:var(--faint);font-s
 .modal-done h4{font-size:19px;font-weight:800;margin-bottom:8px}
 .modal-done p{font-size:14px;color:var(--muted);margin-bottom:20px}
 .modal-done .btn{width:100%;justify-content:center}
+.modal-config{background:var(--accent-soft);border:1px solid var(--line);border-radius:10px;padding:12px 15px;margin-top:14px}
+.modal-config .mc-l{font-family:var(--mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--hi-deep);font-weight:700;margin-bottom:5px}
+.modal-config .mc-items{font-size:13px;font-weight:600;color:var(--ink);line-height:1.5}
+.modal-config .mc-price{font-size:12.5px;color:var(--hi-deep);font-weight:700;margin-top:5px}
+.modal-card textarea{font-family:inherit;font-size:14px;padding:11px 13px;border:1px solid var(--line-strong);border-radius:9px;background:var(--band-a);color:var(--ink);min-height:64px;resize:vertical}
+.modal-card textarea:focus{outline:2px solid var(--accent);outline-offset:1px;border-color:var(--accent)}
 </style>
 <script type="application/ld+json">
 {
@@ -615,7 +621,7 @@ footer{border-top:1px solid var(--line);padding:34px 0;color:var(--faint);font-s
         </div>
         <p class="note" id="covNote"></p>
         <div class="pricebox" id="priceBox" hidden></div>
-        <a class="btn" href="#" onclick="openModal(event)">이 구성으로 문의 →</a>
+        <a class="btn" href="#" onclick="openModal(event,true)">이 구성으로 문의 →</a>
       </div>
     </div>
   </div>
@@ -873,12 +879,14 @@ footer{border-top:1px solid var(--line);padding:34px 0;color:var(--faint);font-s
       GEO<span class="b">BEE</span>
     </div>
     <div class="modal-title">무료 진단 신청</div>
+    <div class="modal-config" id="modalConfig" hidden></div>
     <form id="applyForm" onsubmit="return submitApply(event)">
       <label>브랜드<input name="brand" required></label>
       <label>홈페이지 URL<input name="url" type="url" placeholder="https://"></label>
       <label>이메일<input name="email" type="email" required></label>
       <label>담당자<input name="manager" required></label>
       <label>연락처<input name="phone" required></label>
+      <label>문의 내용<textarea name="note" placeholder="원하는 구성·비고를 적어주세요"></textarea></label>
       <label class="agree"><input type="checkbox" required><span>개인정보 수집·이용에 동의합니다</span></label>
       <button class="btn" type="submit">무료 진단 신청하기</button>
     </form>
@@ -939,7 +947,23 @@ function render(){
 }
 function toggle(el){ el.classList.toggle('on'); render(); }
 render();
-function openModal(e){ if(e) e.preventDefault(); document.getElementById('applyForm').hidden=false; document.getElementById('applyDone').hidden=true; document.getElementById('applyModal').hidden=false; document.body.style.overflow='hidden'; }
+function priceText(){
+  var sel=[]; document.querySelectorAll('.opt.on').forEach(function(o){sel.push({price:parseInt(o.dataset.price||'0',10),nego:o.dataset.nego==='1',name:o.dataset.name});});
+  if(!sel.length) return {items:'',price:''};
+  var subtotal=0; sel.forEach(function(s){subtotal+=s.price;});
+  var names=sel.map(function(s){return s.name;});
+  var nego=sel.filter(function(s){return s.nego;}).map(function(s){return s.name.replace(' 운영','');});
+  var discounted=(sel.length>=2 && subtotal>0); var t='';
+  if(subtotal>0){ var fin=discounted?Math.round(subtotal*0.8):subtotal; t=discounted?(subtotal+'만원 → 20%↓ → '+fin+'만원'):(subtotal+'만원'); if(nego.length) t+=' + '+nego.join('·')+' 별도협의'; }
+  else { t=nego.length?(nego.join('·')+' 별도협의'):''; }
+  if(t) t+=' (VAT별도)';
+  return {items:names.join(', '), price:t};
+}
+function openModal(e,cfg){ if(e) e.preventDefault();
+  var conf=document.getElementById('modalConfig'); var note=document.querySelector('#applyForm [name=note]');
+  if(cfg){ var pc=priceText(); conf.innerHTML='<div class="mc-l">선택 구성</div><div class="mc-items">'+(pc.items||'미선택')+'</div>'+(pc.price?'<div class="mc-price">예상 견적 '+pc.price+'</div>':''); conf.hidden=false; if(note) note.value='[선택 구성] '+pc.items+(pc.price?' / 예상 '+pc.price:''); }
+  else { conf.hidden=true; if(note) note.value=''; }
+  document.getElementById('applyForm').hidden=false; document.getElementById('applyDone').hidden=true; document.getElementById('applyModal').hidden=false; document.body.style.overflow='hidden'; }
 function closeModal(){ document.getElementById('applyModal').hidden=true; document.body.style.overflow=''; }
 function submitApply(e){ e.preventDefault(); document.getElementById('applyForm').hidden=true; document.getElementById('applyDone').hidden=false; return false; }
 document.addEventListener('keydown',function(e){ if(e.key==='Escape') closeModal(); });

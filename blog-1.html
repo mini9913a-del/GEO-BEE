@@ -147,12 +147,14 @@
 <button class="modal-x" onclick="closeModal()" aria-label="닫기">&times;</button>
 <div class="logo modal-logo"><svg class="hex" viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#F2A007"/><stop offset="1" stop-color="#FBC01A"/></linearGradient></defs><path d="M12 2l8.66 5v10L12 22l-8.66-5V7z" fill="url(#bg)" stroke="var(--ink)" stroke-width="1.4" stroke-linejoin="round"/></svg> GEO<span class="b">BEE</span></div>
 <div class="modal-title">무료 진단 신청</div>
+<div class="modal-config" id="modalConfig" hidden></div>
 <form id="applyForm" onsubmit="return submitApply(event)">
 <label>브랜드<input name="brand" required></label>
 <label>홈페이지 URL<input name="url" type="url" placeholder="https://"></label>
 <label>이메일<input name="email" type="email" required></label>
 <label>담당자<input name="manager" required></label>
 <label>연락처<input name="phone" required></label>
+<label>문의 내용<textarea name="note" placeholder="원하는 구성·비고를 적어주세요"></textarea></label>
 <label class="agree"><input type="checkbox" required><span>개인정보 수집·이용에 동의합니다</span></label>
 <button class="btn" type="submit">무료 진단 신청하기</button>
 </form>
@@ -164,7 +166,23 @@
 </div>
 </div></div>
 <script>
-function openModal(e){ if(e) e.preventDefault(); document.getElementById('applyForm').hidden=false; document.getElementById('applyDone').hidden=true; document.getElementById('applyModal').hidden=false; document.body.style.overflow='hidden'; }
+function priceText(){
+  var sel=[]; document.querySelectorAll('.opt.on').forEach(function(o){sel.push({price:parseInt(o.dataset.price||'0',10),nego:o.dataset.nego==='1',name:o.dataset.name});});
+  if(!sel.length) return {items:'',price:''};
+  var subtotal=0; sel.forEach(function(s){subtotal+=s.price;});
+  var names=sel.map(function(s){return s.name;});
+  var nego=sel.filter(function(s){return s.nego;}).map(function(s){return s.name.replace(' 운영','');});
+  var discounted=(sel.length>=2 && subtotal>0); var t='';
+  if(subtotal>0){ var fin=discounted?Math.round(subtotal*0.8):subtotal; t=discounted?(subtotal+'만원 → 20%↓ → '+fin+'만원'):(subtotal+'만원'); if(nego.length) t+=' + '+nego.join('·')+' 별도협의'; }
+  else { t=nego.length?(nego.join('·')+' 별도협의'):''; }
+  if(t) t+=' (VAT별도)';
+  return {items:names.join(', '), price:t};
+}
+function openModal(e,cfg){ if(e) e.preventDefault();
+  var conf=document.getElementById('modalConfig'); var note=document.querySelector('#applyForm [name=note]');
+  if(cfg){ var pc=priceText(); conf.innerHTML='<div class="mc-l">선택 구성</div><div class="mc-items">'+(pc.items||'미선택')+'</div>'+(pc.price?'<div class="mc-price">예상 견적 '+pc.price+'</div>':''); conf.hidden=false; if(note) note.value='[선택 구성] '+pc.items+(pc.price?' / 예상 '+pc.price:''); }
+  else { conf.hidden=true; if(note) note.value=''; }
+  document.getElementById('applyForm').hidden=false; document.getElementById('applyDone').hidden=true; document.getElementById('applyModal').hidden=false; document.body.style.overflow='hidden'; }
 function closeModal(){ document.getElementById('applyModal').hidden=true; document.body.style.overflow=''; }
 function submitApply(e){ e.preventDefault(); document.getElementById('applyForm').hidden=true; document.getElementById('applyDone').hidden=false; return false; }
 document.addEventListener('keydown',function(e){ if(e.key==='Escape') closeModal(); });
